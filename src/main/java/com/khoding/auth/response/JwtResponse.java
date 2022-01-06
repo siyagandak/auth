@@ -5,8 +5,9 @@ import com.khoding.auth.domain.login.Role;
 import java.util.List;
 
 public class JwtResponse {
+    private String headerName = "Authorization";
     private String token;
-    private String type = "Bearer ";
+    private String type = "Bearer";
     private Long id;
     private String username;
     private List<String> roles;
@@ -56,5 +57,13 @@ public class JwtResponse {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public String getHeaderName() {
+        return headerName;
+    }
+
+    public void setHeaderName(String headerName) {
+        this.headerName = headerName;
     }
 }
