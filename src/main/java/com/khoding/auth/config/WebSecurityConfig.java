@@ -3,6 +3,7 @@ package com.khoding.auth.config;
 import com.khoding.auth.security.AuthEntryPointJwt;
 import com.khoding.auth.security.AuthTokenFilter;
 import com.khoding.auth.security.JwtUtils;
+import com.khoding.auth.security.RestControllerAccessDeniedHandler;
 import com.khoding.auth.service.UserDetailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true) //securedEnabled = true, jsr250Enabled = true,
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthEntryPointJwt authEntryStatus;
+    private final RestControllerAccessDeniedHandler accessDeniedHandler;
     private final UserDetailServiceImpl userDetailServiceImpl;
     private final JwtUtils jwtUtils;
 
@@ -30,8 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui/**"
     };
 
-    public WebSecurityConfig(AuthEntryPointJwt authEntryStatus, UserDetailServiceImpl userDetailServiceImpl, JwtUtils jwtUtils) {
+    public WebSecurityConfig(AuthEntryPointJwt authEntryStatus, RestControllerAccessDeniedHandler accessDeniedHandler, UserDetailServiceImpl userDetailServiceImpl, JwtUtils jwtUtils) {
         this.authEntryStatus = authEntryStatus;
+        this.accessDeniedHandler = accessDeniedHandler;
         this.userDetailServiceImpl = userDetailServiceImpl;
         this.jwtUtils = jwtUtils;
     }
@@ -60,7 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(authEntryStatus).and()
+                .exceptionHandling().authenticationEntryPoint(authEntryStatus)
+                .accessDeniedHandler(accessDeniedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll().and()
                 .authorizeRequests().antMatchers("/api/test/**").permitAll().and()
