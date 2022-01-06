@@ -41,7 +41,6 @@ public class SignUpRequest {
     public String toString() {
         return "SignUpRequest{" +
                 "username='" + username + '\'' +
-                ", pin=" + pin +
                 '}';
     }
 }
