@@ -43,11 +43,11 @@ public class SignupServiceImpl implements SignupService {
     }
 
     @Override
-    public User signUpUser(SignUpRequest signUpRequest) {
-        LOGGER.info("{} SigningUp User ={}", LOGGER_PREFIX, signUpRequest);
-        User user = User.of(formatUsername(signUpRequest.getUsername()), passwordEncoder.encode(signUpRequest.getPin()),
+    public User signUpUser(UserSignUpRequest userSignUpRequest) {
+        LOGGER.info("{} SigningUp User ={}", LOGGER_PREFIX, userSignUpRequest);
+        User user = User.of(formatUsername(userSignUpRequest.getMobileNumber()), passwordEncoder.encode(userSignUpRequest.getPin()),
                 LocalDateTime.now());
-        Set<String> user_roles = signUpRequest.getRole();
+        Set<String> user_roles = userSignUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
         if (Objects.isNull(user_roles)) {
             Role userRole = roleRepository.findByUserRole(UserRole.ROLE_USER)
@@ -61,6 +61,10 @@ public class SignupServiceImpl implements SignupService {
                                 .orElseThrow(() -> new RuntimeException("Role not found"));
                         roles.add(adminRole);
                         break;
+                    case "eadmin":
+                        Role eadminRole = roleRepository.findByUserRole(UserRole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Role not found"));
+                        roles.add(eadminRole);
                     default:
                         Role userRole = roleRepository.findByUserRole(UserRole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Role not found"));

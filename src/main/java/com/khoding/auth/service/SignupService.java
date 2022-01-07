@@ -4,7 +4,7 @@ import com.khoding.auth.domain.login.User;
 import com.khoding.auth.response.JwtResponse;
 
 public interface SignupService {
-    User signUpUser(SignUpRequest signUpRequest);
+    User signUpUser(UserSignUpRequest userSignUpRequest);
 
     Boolean checkUserExits(String username);
 
