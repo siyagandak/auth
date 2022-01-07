@@ -1,7 +1,5 @@
 package com.khoding.auth.response;
 
-import com.khoding.auth.domain.login.Role;
-
 import java.util.List;
 
 public class JwtResponse {
@@ -17,6 +15,10 @@ public class JwtResponse {
         this.id = id;
         this.username = username;
         this.roles = roles;
+    }
+
+    public static JwtResponse buildJwtResponse(String token, Long id, String username, List<String> roles) {
+        return new JwtResponse(token, id, username, roles);
     }
 
     public String getToken() {
