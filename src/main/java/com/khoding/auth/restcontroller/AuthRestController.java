@@ -62,23 +62,13 @@ public class AuthRestController {
                     .body(MessageResponse.buildMessage("Error: Username already exists"));
         }
         User user = signupService.signUpUser(signUpRequest);
-//        return ResponseEntity.ok(MessageResponse.buildMessage("Success: User created successfully"));
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("signin")
-    public ResponseEntity<?> signIn(@RequestBody @Valid LoginRequest loginRequest){
+    public ResponseEntity<?> signIn(@RequestBody @Valid LoginRequest loginRequest) {
         LOGGER.info("{} SignIn request.... {}", LOGGER_PREFIX, loginRequest);
-        Authentication authentication =authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPin()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities()
-                .stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), roles));
+        JwtResponse jwtResponse = signupService.siginUser(loginRequest);
+        return ResponseEntity.ok(jwtResponse);
     }
-
 }

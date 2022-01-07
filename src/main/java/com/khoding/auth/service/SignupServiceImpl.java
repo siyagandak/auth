@@ -5,29 +5,41 @@ import com.khoding.auth.domain.login.User;
 import com.khoding.auth.domain.login.UserRole;
 import com.khoding.auth.repository.RoleRepository;
 import com.khoding.auth.repository.UserRepository;
+import com.khoding.auth.response.JwtResponse;
+import com.khoding.auth.security.JwtUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class SignupServiceImpl implements SignupService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
     private final static String LOGGER_PREFIX = "[SignUp Service]";
     private static final Logger LOGGER = LoggerFactory.getLogger(SignupServiceImpl.class);
 
-    public SignupServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public SignupServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -77,5 +89,19 @@ public class SignupServiceImpl implements SignupService {
     @Override
     public Boolean checkUserExits(String username) {
         return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public JwtResponse siginUser(LoginRequest loginRequest) {
+        Authentication authentication =authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPin()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities()
+                .stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+        return JwtResponse.buildJwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), roles);
     }
 }
