@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,14 +17,12 @@ public class User {
     @Column(nullable = false, updatable = false)
     private Long id;
     @NotBlank
-    @Size(max = 12)
     @Column(name = "username")
     private String username;
     @JsonIgnore
     @NotBlank
-    @Size(min = 4, max = 6)
-    @Column(name = "pin")
-    private String pin;
+    @Column(name = "password")
+    private String password;
     @Column(name = "date_signed_up")
     private LocalDateTime dateSignedUp;
     @ManyToMany(fetch = FetchType.LAZY)
@@ -37,9 +34,9 @@ public class User {
     public User() {
     }
 
-    public User(String username, String pin, LocalDateTime dateSignedUp) {
+    public User(String username, String password, LocalDateTime dateSignedUp) {
         this.username = username;
-        this.pin = pin;
+        this.password = password;
         this.dateSignedUp = dateSignedUp;
     }
 
@@ -59,12 +56,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPin() {
-        return pin;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPin(String pin) {
-        this.pin = pin;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LocalDateTime getDateSignedUp() {
@@ -83,7 +80,7 @@ public class User {
         this.userRoles = userRoles;
     }
 
-    public static User of(String username, String pin, LocalDateTime dateSignedUp) {
-        return new User(username, pin, dateSignedUp);
+    public static User of(String username, String password, LocalDateTime dateSignedUp) {
+        return new User(username, password, dateSignedUp);
     }
 }
