@@ -1,7 +1,6 @@
 package com.khoding.auth.security;
 
 import com.khoding.auth.service.UserDetailServiceImpl;
-import com.khoding.auth.service.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,16 +1,15 @@
 package com.khoding.auth.restcontroller;
 
 import com.khoding.auth.domain.login.User;
-import com.khoding.auth.repository.UserRepository;
 import com.khoding.auth.response.JwtResponse;
 import com.khoding.auth.response.MessageResponse;
-import com.khoding.auth.security.JwtUtils;
-import com.khoding.auth.service.*;
+import com.khoding.auth.service.AdminSignUpRequest;
+import com.khoding.auth.service.LoginRequest;
+import com.khoding.auth.service.SignupService;
+import com.khoding.auth.service.UserSignUpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
