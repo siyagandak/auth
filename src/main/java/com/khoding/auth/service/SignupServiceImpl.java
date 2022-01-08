@@ -62,9 +62,10 @@ public class SignupServiceImpl implements SignupService {
                         roles.add(adminRole);
                         break;
                     case "eadmin":
-                        Role eadminRole = roleRepository.findByUserRole(UserRole.ROLE_ADMIN)
+                        Role eadminRole = roleRepository.findByUserRole(UserRole.ROLE_EADMIN)
                                 .orElseThrow(() -> new RuntimeException("Role not found"));
                         roles.add(eadminRole);
+                        break;
                     default:
                         Role userRole = roleRepository.findByUserRole(UserRole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Role not found"));
@@ -77,17 +78,15 @@ public class SignupServiceImpl implements SignupService {
     }
 
     private String formatUsername(String username) {
-        String formattedUsername = "";
         if (StringUtils.startsWithAny(username, "00", "+")) {
             LOGGER.info("{} Format user name", LOGGER_PREFIX);
-            formattedUsername = username.startsWith("00") ? StringUtils.remove(username, "00") :
+            username = username.startsWith("00") ? StringUtils.remove(username, "00") :
                     StringUtils.remove(username, "+");
         }
-
-        if (StringUtils.containsAny(formattedUsername, " ")) {
-            formattedUsername = StringUtils.remove(formattedUsername, " ");
+        if (StringUtils.containsAny(username, " ")) {
+            username = StringUtils.remove(username, " ");
         }
-        return formattedUsername;
+        return username;
     }
 
     @Override
@@ -97,6 +96,7 @@ public class SignupServiceImpl implements SignupService {
 
     @Override
     public JwtResponse siginUser(LoginRequest loginRequest) {
+        LOGGER.info("{} signing in user {}", LOGGER_PREFIX, loginRequest);
         Authentication authentication =authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPin()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
