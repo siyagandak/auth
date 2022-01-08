@@ -23,4 +23,11 @@ public class LoginRequest {
     public void setPin(String pin) {
         this.pin = pin;
     }
+
+    @Override
+    public String toString() {
+        return "LoginRequest{" +
+                "username='" + username + '\'' +
+                '}';
+    }
 }
