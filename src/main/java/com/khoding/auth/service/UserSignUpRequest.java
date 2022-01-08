@@ -11,7 +11,6 @@ public class UserSignUpRequest {
     @NotBlank
     private String mobileNumber;
     @Size(min = 4, max = 6)
-    @JsonIgnore
     @NotBlank
     private String pin;
     private Set<String> role;

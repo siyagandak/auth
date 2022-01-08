@@ -12,7 +12,6 @@ public class AdminSignUpRequest {
     @NotBlank
     private String username;
     @Size(max = 40)
-    @JsonIgnore
     @NotBlank
     private String password;
     private Set<String> role;
