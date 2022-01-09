@@ -2,6 +2,7 @@ package com.khoding.auth.restcontroller;
 
 import com.khoding.auth.domain.login.User;
 import com.khoding.auth.service.UserService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +18,15 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/getUser/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         User user = userService.getUserByUsername(username);
         UserDto userDto = UserDto.of(user.getId(), user.getDateSignedUp().toString(), user.getUserRoles(), user.getOrganization().getName());
         return ResponseEntity.ok(userDto);
+    }
+
+    @GetMapping("/getAllUsers/{organizationId}")
+    public ResponseEntity<?> getAllUsersByOrganizationId(@PathVariable Long organizationId){
+        return ResponseEntity.ok(userService.findAllByOrganization_Id(organizationId, Pageable.unpaged()));
     }
 }
