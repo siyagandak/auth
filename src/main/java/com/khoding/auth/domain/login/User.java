@@ -29,14 +29,17 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> userRoles = new HashSet<>();
+    @ManyToOne
+    private Organization organization;
 
     public User() {
     }
 
-    public User(String username, String password, LocalDateTime dateSignedUp) {
+    public User(String username, String password, LocalDateTime dateSignedUp, Organization organization) {
         this.username = username;
         this.password = password;
         this.dateSignedUp = dateSignedUp;
+        this.organization = organization;
     }
 
     public Long getId() {
@@ -79,7 +82,15 @@ public class User {
         this.userRoles = userRoles;
     }
 
-    public static User of(String username, String password, LocalDateTime dateSignedUp) {
-        return new User(username, password, dateSignedUp);
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public static User of(String username, String password, LocalDateTime dateSignedUp, Organization organization) {
+        return new User(username, password, dateSignedUp, organization);
     }
 }
