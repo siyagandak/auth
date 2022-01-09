@@ -2,18 +2,18 @@ package com.khoding.auth.service;
 
 import javax.validation.constraints.NotBlank;
 
-public class LoginRequest {
+public class UserLoginRequest {
     @NotBlank
-    private String username;
+    private String mobileNumber;
     @NotBlank
     private String pin;
 
-    public String getUsername() {
-        return username;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getPin() {
@@ -27,7 +27,7 @@ public class LoginRequest {
     @Override
     public String toString() {
         return "LoginRequest{" +
-                "username='" + username + '\'' +
+                "mobileNumber='" + mobileNumber + '\'' +
                 '}';
     }
 }

@@ -4,7 +4,7 @@ import com.khoding.auth.domain.login.User;
 import com.khoding.auth.response.JwtResponse;
 import com.khoding.auth.response.MessageResponse;
 import com.khoding.auth.service.AdminSignUpRequest;
-import com.khoding.auth.service.LoginRequest;
+import com.khoding.auth.service.UserLoginRequest;
 import com.khoding.auth.service.SignupService;
 import com.khoding.auth.service.UserSignUpRequest;
 import org.slf4j.Logger;
@@ -48,9 +48,9 @@ public class AuthRestController {
     }
 
     @PostMapping("signin")
-    public ResponseEntity<?> signIn(@RequestBody @Valid LoginRequest loginRequest) {
-        LOGGER.info("{} SignIn request.... {}", LOGGER_PREFIX, loginRequest);
-        JwtResponse jwtResponse = signupService.siginUser(loginRequest);
+    public ResponseEntity<?> signIn(@RequestBody @Valid UserLoginRequest userLoginRequest) {
+        LOGGER.info("{} SignIn request.... {}", LOGGER_PREFIX, userLoginRequest);
+        JwtResponse jwtResponse = signupService.siginUser(userLoginRequest);
         return ResponseEntity.ok(jwtResponse);
     }
 }

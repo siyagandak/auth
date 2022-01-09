@@ -8,5 +8,5 @@ public interface SignupService {
 
     Boolean checkUserExits(String username);
 
-    JwtResponse siginUser(LoginRequest loginRequest);
+    JwtResponse siginUser(UserLoginRequest userLoginRequest);
 }

@@ -100,10 +100,10 @@ public class SignupServiceImpl implements SignupService {
     }
 
     @Override
-    public JwtResponse siginUser(LoginRequest loginRequest) {
-        LOGGER.info("{} signing in user {}", LOGGER_PREFIX, loginRequest);
+    public JwtResponse siginUser(UserLoginRequest userLoginRequest) {
+        LOGGER.info("{} signing in user {}", LOGGER_PREFIX, userLoginRequest);
         Authentication authentication =authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPin()));
+                new UsernamePasswordAuthenticationToken(userLoginRequest.getMobileNumber(), userLoginRequest.getPin()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
