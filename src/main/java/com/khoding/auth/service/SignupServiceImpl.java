@@ -1,8 +1,10 @@
 package com.khoding.auth.service;
 
+import com.khoding.auth.domain.login.Organization;
 import com.khoding.auth.domain.login.Role;
 import com.khoding.auth.domain.login.User;
 import com.khoding.auth.domain.login.UserRole;
+import com.khoding.auth.repository.OrganizationRepository;
 import com.khoding.auth.repository.RoleRepository;
 import com.khoding.auth.repository.UserRepository;
 import com.khoding.auth.response.JwtResponse;
@@ -29,15 +31,17 @@ public class SignupServiceImpl implements SignupService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final OrganizationRepository organizationRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final static String LOGGER_PREFIX = "[SignUp Service]";
     private static final Logger LOGGER = LoggerFactory.getLogger(SignupServiceImpl.class);
 
-    public SignupServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    public SignupServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, OrganizationRepository organizationRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.organizationRepository = organizationRepository;
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
     }
@@ -45,8 +49,9 @@ public class SignupServiceImpl implements SignupService {
     @Override
     public User signUpUser(UserSignUpRequest userSignUpRequest) {
         LOGGER.info("{} SigningUp User ={}", LOGGER_PREFIX, userSignUpRequest);
+        Organization organization = organizationRepository.findById(userSignUpRequest.getOrganizationId()).get();
         User user = User.of(formatUsername(userSignUpRequest.getMobileNumber()), passwordEncoder.encode(userSignUpRequest.getPin()),
-                LocalDateTime.now());
+                LocalDateTime.now(), organization);
         Set<String> user_roles = userSignUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
         if (Objects.isNull(user_roles)) {

@@ -12,6 +12,8 @@ public class UserSignUpRequest {
     @NotBlank
     private String pin;
     private Set<String> role;
+    @NotBlank
+    private Long organizationId;
 
     public UserSignUpRequest() {
     }
@@ -40,11 +42,20 @@ public class UserSignUpRequest {
         this.role = role;
     }
 
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
+
     @Override
     public String toString() {
         return "UserSignUpRequest{" +
                 "mobileNumber='" + mobileNumber + '\'' +
                 ", role=" + role +
+                ", organizationId=" + organizationId +
                 '}';
     }
 }
