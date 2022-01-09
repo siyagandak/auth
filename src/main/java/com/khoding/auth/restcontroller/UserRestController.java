@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
@@ -26,7 +28,12 @@ public class UserRestController {
     }
 
     @GetMapping("/getAllUsers/{organizationId}")
-    public ResponseEntity<?> getAllUsersByOrganizationId(@PathVariable Long organizationId){
+    public ResponseEntity<?> getAllUsersByOrganizationId(@PathVariable Long organizationId) {
         return ResponseEntity.ok(userService.findAllByOrganization_Id(organizationId, Pageable.unpaged()));
+    }
+
+    @GetMapping("/admin-view")
+    public ResponseEntity<?> adminView(Principal principal) {
+        return ResponseEntity.ok(userService.adminViewUsers(principal.getName()));
     }
 }

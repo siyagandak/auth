@@ -8,4 +8,6 @@ public interface UserService {
     User getUserByUsername(String username);
 
     Page<User> findAllByOrganization_Id(Long organizationId, Pageable pageablee);
+
+    Page<User> adminViewUsers(String username);
 }

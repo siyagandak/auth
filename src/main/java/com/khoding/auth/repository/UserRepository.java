@@ -1,7 +1,9 @@
 package com.khoding.auth.repository;
 
 import com.khoding.auth.domain.login.Organization;
+import com.khoding.auth.domain.login.Role;
 import com.khoding.auth.domain.login.User;
+import com.khoding.auth.domain.login.UserRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +15,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Boolean existsByUsername(String username);
 
-    Page<User> findAllByOrganization_Id(Long organizationId, Pageable pageablee);
+    Page<User> findAllByOrganization_Id(Long organizationId,  Pageable pageablee);
 }
