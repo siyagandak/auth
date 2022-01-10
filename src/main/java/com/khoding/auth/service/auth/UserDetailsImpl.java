@@ -1,7 +1,7 @@
-package com.khoding.auth.service;
+package com.khoding.auth.service.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.khoding.auth.domain.login.User;
+import com.khoding.auth.domain.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

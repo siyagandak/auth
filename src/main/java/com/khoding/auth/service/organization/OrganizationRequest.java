@@ -1,4 +1,4 @@
-package com.khoding.auth.service;
+package com.khoding.auth.service.organization;
 
 import javax.validation.constraints.NotBlank;
 

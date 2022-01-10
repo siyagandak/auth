@@ -1,6 +1,6 @@
-package com.khoding.auth.service;
+package com.khoding.auth.service.organization;
 
-import com.khoding.auth.domain.login.Organization;
+import com.khoding.auth.domain.organization.Organization;
 import org.springframework.data.domain.Page;
 
 public interface OrganizationService {

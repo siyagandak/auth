@@ -1,7 +1,7 @@
-package com.khoding.auth.restcontroller;
+package com.khoding.auth.restcontroller.user;
 
-import com.khoding.auth.domain.login.User;
-import com.khoding.auth.service.UserService;
+import com.khoding.auth.domain.user.User;
+import com.khoding.auth.service.user.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

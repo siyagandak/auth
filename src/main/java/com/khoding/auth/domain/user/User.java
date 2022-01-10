@@ -1,6 +1,7 @@
-package com.khoding.auth.domain.login;
+package com.khoding.auth.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.khoding.auth.domain.organization.Organization;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

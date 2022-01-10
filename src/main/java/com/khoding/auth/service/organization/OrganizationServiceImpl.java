@@ -1,7 +1,7 @@
-package com.khoding.auth.service;
+package com.khoding.auth.service.organization;
 
-import com.khoding.auth.domain.login.Organization;
-import com.khoding.auth.repository.OrganizationRepository;
+import com.khoding.auth.domain.organization.Organization;
+import com.khoding.auth.repository.organization.OrganizationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

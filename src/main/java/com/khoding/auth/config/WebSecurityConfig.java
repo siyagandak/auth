@@ -4,7 +4,7 @@ import com.khoding.auth.security.AuthEntryPointJwt;
 import com.khoding.auth.security.AuthTokenFilter;
 import com.khoding.auth.security.JwtUtils;
 import com.khoding.auth.security.RestControllerAccessDeniedHandler;
-import com.khoding.auth.service.UserDetailServiceImpl;
+import com.khoding.auth.service.auth.UserDetailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

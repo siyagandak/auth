@@ -1,6 +1,6 @@
 package com.khoding.auth.security;
 
-import com.khoding.auth.service.UserDetailsImpl;
+import com.khoding.auth.service.auth.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,12 +1,12 @@
-package com.khoding.auth.restcontroller;
+package com.khoding.auth.restcontroller.auth;
 
-import com.khoding.auth.domain.login.User;
+import com.khoding.auth.domain.user.User;
 import com.khoding.auth.response.JwtResponse;
 import com.khoding.auth.response.MessageResponse;
-import com.khoding.auth.service.AdminSignUpRequest;
-import com.khoding.auth.service.UserLoginRequest;
-import com.khoding.auth.service.SignupService;
-import com.khoding.auth.service.UserSignUpRequest;
+import com.khoding.auth.service.user.AdminSignUpRequest;
+import com.khoding.auth.service.user.UserLoginRequest;
+import com.khoding.auth.service.auth.AuthService;
+import com.khoding.auth.service.user.UserSignUpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -20,25 +20,25 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthRestController {
-    private final SignupService signupService;
+    private final AuthService authService;
     private final static String LOGGER_PREFIX = "[Auth Controller]";
     private final static Logger LOGGER = LoggerFactory.getLogger(AuthRestController.class);
 
-    public AuthRestController(SignupService signupService) {
-        this.signupService = signupService;
+    public AuthRestController(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostMapping("/signup/user")
     public ResponseEntity<?> signUpUser(@RequestBody @Valid UserSignUpRequest userSignUpRequest) {
         LOGGER.info("{} SignUp request... {}", LOGGER_PREFIX, userSignUpRequest);
-        if (signupService.checkUserExits(userSignUpRequest.getMobileNumber())) {
+        if (authService.checkUserExits(userSignUpRequest.getMobileNumber())) {
             LOGGER.info("{} Username {} exits => {}", LOGGER_PREFIX, userSignUpRequest.getMobileNumber(),
-                    signupService.signUpUser(userSignUpRequest));
+                    authService.signUpUser(userSignUpRequest));
             return ResponseEntity
                     .badRequest()
                     .body(MessageResponse.buildMessage("Error: Username already exists"));
         }
-        User user = signupService.signUpUser(userSignUpRequest);
+        User user = authService.signUpUser(userSignUpRequest);
         return ResponseEntity.ok(user);
     }
 
@@ -50,7 +50,7 @@ public class AuthRestController {
     @PostMapping("signin")
     public ResponseEntity<?> signIn(@RequestBody @Valid UserLoginRequest userLoginRequest) {
         LOGGER.info("{} SignIn request.... {}", LOGGER_PREFIX, userLoginRequest);
-        JwtResponse jwtResponse = signupService.siginUser(userLoginRequest);
+        JwtResponse jwtResponse = authService.siginUser(userLoginRequest);
         return ResponseEntity.ok(jwtResponse);
     }
 }

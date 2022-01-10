@@ -1,9 +1,6 @@
-package com.khoding.auth.repository;
+package com.khoding.auth.repository.user;
 
-import com.khoding.auth.domain.login.Organization;
-import com.khoding.auth.domain.login.Role;
-import com.khoding.auth.domain.login.User;
-import com.khoding.auth.domain.login.UserRole;
+import com.khoding.auth.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

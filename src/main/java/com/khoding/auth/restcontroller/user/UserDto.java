@@ -1,6 +1,6 @@
-package com.khoding.auth.restcontroller;
+package com.khoding.auth.restcontroller.user;
 
-import com.khoding.auth.domain.login.Role;
+import com.khoding.auth.domain.user.Role;
 
 import java.util.Set;
 

@@ -1,7 +1,7 @@
-package com.khoding.auth.repository;
+package com.khoding.auth.repository.user;
 
-import com.khoding.auth.domain.login.Role;
-import com.khoding.auth.domain.login.UserRole;
+import com.khoding.auth.domain.user.Role;
+import com.khoding.auth.domain.user.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,17 +1,13 @@
-package com.khoding.auth.service;
+package com.khoding.auth.service.user;
 
-import com.khoding.auth.domain.login.User;
-import com.khoding.auth.domain.login.UserRole;
-import com.khoding.auth.repository.RoleRepository;
-import com.khoding.auth.repository.UserRepository;
+import com.khoding.auth.domain.user.User;
+import com.khoding.auth.repository.user.RoleRepository;
+import com.khoding.auth.repository.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{

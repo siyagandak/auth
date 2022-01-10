@@ -1,6 +1,6 @@
-package com.khoding.auth.repository;
+package com.khoding.auth.repository.organization;
 
-import com.khoding.auth.domain.login.Organization;
+import com.khoding.auth.domain.organization.Organization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

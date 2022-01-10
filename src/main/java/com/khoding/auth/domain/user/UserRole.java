@@ -1,4 +1,4 @@
-package com.khoding.auth.domain.login;
+package com.khoding.auth.domain.user;
 
 public enum UserRole {
     ROLE_ADMIN,

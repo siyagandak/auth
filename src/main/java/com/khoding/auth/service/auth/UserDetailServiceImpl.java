@@ -1,7 +1,7 @@
-package com.khoding.auth.service;
+package com.khoding.auth.service.auth;
 
-import com.khoding.auth.domain.login.User;
-import com.khoding.auth.repository.UserRepository;
+import com.khoding.auth.domain.user.User;
+import com.khoding.auth.repository.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

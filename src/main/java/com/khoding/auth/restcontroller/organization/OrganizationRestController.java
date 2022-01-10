@@ -1,9 +1,9 @@
-package com.khoding.auth.restcontroller;
+package com.khoding.auth.restcontroller.organization;
 
-import com.khoding.auth.domain.login.Organization;
+import com.khoding.auth.domain.organization.Organization;
 import com.khoding.auth.response.MessageResponse;
-import com.khoding.auth.service.OrganizationService;
-import com.khoding.auth.service.OrganizationRequest;
+import com.khoding.auth.service.organization.OrganizationService;
+import com.khoding.auth.service.organization.OrganizationRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

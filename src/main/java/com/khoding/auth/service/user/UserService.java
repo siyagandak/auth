@@ -1,6 +1,6 @@
-package com.khoding.auth.service;
+package com.khoding.auth.service.user;
 
-import com.khoding.auth.domain.login.User;
+import com.khoding.auth.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

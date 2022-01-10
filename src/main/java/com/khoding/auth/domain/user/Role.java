@@ -1,4 +1,4 @@
-package com.khoding.auth.domain.login;
+package com.khoding.auth.domain.user;
 
 import javax.persistence.*;
 

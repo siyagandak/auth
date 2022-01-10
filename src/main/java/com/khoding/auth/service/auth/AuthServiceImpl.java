@@ -1,14 +1,16 @@
-package com.khoding.auth.service;
+package com.khoding.auth.service.auth;
 
-import com.khoding.auth.domain.login.Organization;
-import com.khoding.auth.domain.login.Role;
-import com.khoding.auth.domain.login.User;
-import com.khoding.auth.domain.login.UserRole;
-import com.khoding.auth.repository.OrganizationRepository;
-import com.khoding.auth.repository.RoleRepository;
-import com.khoding.auth.repository.UserRepository;
+import com.khoding.auth.domain.organization.Organization;
+import com.khoding.auth.domain.user.Role;
+import com.khoding.auth.domain.user.User;
+import com.khoding.auth.domain.user.UserRole;
+import com.khoding.auth.repository.organization.OrganizationRepository;
+import com.khoding.auth.repository.user.RoleRepository;
+import com.khoding.auth.repository.user.UserRepository;
 import com.khoding.auth.response.JwtResponse;
 import com.khoding.auth.security.JwtUtils;
+import com.khoding.auth.service.user.UserLoginRequest;
+import com.khoding.auth.service.user.UserSignUpRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +29,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class SignupServiceImpl implements SignupService {
+public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
@@ -35,9 +37,9 @@ public class SignupServiceImpl implements SignupService {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final static String LOGGER_PREFIX = "[SignUp Service]";
-    private static final Logger LOGGER = LoggerFactory.getLogger(SignupServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceImpl.class);
 
-    public SignupServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, OrganizationRepository organizationRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, OrganizationRepository organizationRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
