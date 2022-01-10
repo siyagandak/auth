@@ -1,16 +1,15 @@
 package com.khoding.auth.restcontroller;
 
+import com.khoding.auth.domain.login.Organization;
 import com.khoding.auth.response.MessageResponse;
 import com.khoding.auth.service.OrganizationService;
 import com.khoding.auth.service.OrganizationRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -40,5 +39,11 @@ public class OrganizationRestController {
                     .body(MessageResponse.buildMessage("Organization code already exists"));
         }
         return ResponseEntity.ok(organizationService.createOrganization(organizationRequest));
+    }
+
+    @GetMapping("/all")
+    public Page<Organization> getAllOrganizations() {
+        LOGGER.info("{} Initiating request to get all organizations...", LOGGER_PREFIX);
+        return organizationService.getAllOrganizations();
     }
 }
