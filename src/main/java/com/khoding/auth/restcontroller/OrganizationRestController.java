@@ -42,6 +42,7 @@ public class OrganizationRestController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasAnyRole('EADMIN', 'ADMIN')")
     public Page<Organization> getAllOrganizations() {
         LOGGER.info("{} Initiating request to get all organizations...", LOGGER_PREFIX);
         return organizationService.getAllOrganizations();
