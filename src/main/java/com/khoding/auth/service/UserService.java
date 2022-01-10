@@ -10,4 +10,6 @@ public interface UserService {
     Page<User> findAllByOrganization_Id(Long organizationId, Pageable pageablee);
 
     Page<User> adminViewUsers(String username);
+
+    Page<User> getAllUsers(Pageable pageable);
 }

@@ -43,4 +43,10 @@ public class UserServiceImpl implements UserService{
         Long organizationId = user.getOrganization().getId();
         return findAllByOrganization_Id(organizationId, Pageable.unpaged());
     }
+
+    @Override
+    public Page<User> getAllUsers(Pageable pageable) {
+        LOGGER.info("{} Gettting all users", LOGGER_PREFIX);
+        return userRepository.findAll(pageable);
+    }
 }
