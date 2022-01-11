@@ -115,4 +115,12 @@ public class AuthServiceImpl implements AuthService {
                 .collect(Collectors.toList());
         return JwtResponse.buildJwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), roles);
     }
+
+    @Override
+    public Integer generateOtp() {
+        Integer min = 100000;
+        Integer max = 999999;
+        Integer number=(int)(Math.random()*(max - min +1 ) + min);
+        return number;
+    }
 }

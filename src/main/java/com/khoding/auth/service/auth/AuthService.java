@@ -11,4 +11,6 @@ public interface AuthService {
     Boolean checkUserExits(String username);
 
     JwtResponse siginUser(UserLoginRequest userLoginRequest);
+
+    Integer generateOtp();
 }
