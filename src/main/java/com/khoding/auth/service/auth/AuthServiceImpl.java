@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
         LOGGER.info("{} SigningUp User ={}", LOGGER_PREFIX, userSignUpRequest);
         Organization organization = organizationRepository.findById(userSignUpRequest.getOrganizationId()).get();
         User user = User.of(formatUsername(userSignUpRequest.getMobileNumber()), passwordEncoder.encode(userSignUpRequest.getPin()),
-                LocalDateTime.now(), organization);
+                LocalDateTime.now(), LocalDateTime.now(), Boolean.FALSE, organization);
         Set<String> user_roles = userSignUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
         if (Objects.isNull(user_roles)) {
