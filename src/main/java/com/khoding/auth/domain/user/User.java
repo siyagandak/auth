@@ -25,6 +25,10 @@ public class User {
     private String password;
     @Column(name = "date_signed_up")
     private LocalDateTime dateSignedUp;
+    @Column(name = "last_modified")
+    private LocalDateTime lastmodified;
+    @Column(name = "verified")
+    private Boolean isVerfied;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
     joinColumns = @JoinColumn(name = "user_id"),
@@ -36,10 +40,13 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, LocalDateTime dateSignedUp, Organization organization) {
+    public User(String username, String password, LocalDateTime dateSignedUp,
+                LocalDateTime lastmodified, Boolean isVerfied, Organization organization) {
         this.username = username;
         this.password = password;
         this.dateSignedUp = dateSignedUp;
+        this.lastmodified = lastmodified;
+        this.isVerfied = isVerfied;
         this.organization = organization;
     }
 
@@ -87,11 +94,28 @@ public class User {
         return organization;
     }
 
+    public LocalDateTime getLastmodified() {
+        return lastmodified;
+    }
+
+    public void setLastmodified(LocalDateTime lastmodified) {
+        this.lastmodified = lastmodified;
+    }
+
+    public Boolean getVerfied() {
+        return isVerfied;
+    }
+
+    public void setVerfied(Boolean verfied) {
+        isVerfied = verfied;
+    }
+
     public void setOrganization(Organization organization) {
         this.organization = organization;
     }
 
-    public static User of(String username, String password, LocalDateTime dateSignedUp, Organization organization) {
-        return new User(username, password, dateSignedUp, organization);
+    public static User of(String username, String password, LocalDateTime dateSignedUp,
+                          LocalDateTime lastmodified, Boolean isVerfied, Organization organization) {
+        return new User(username, password, dateSignedUp, lastmodified, isVerfied, organization);
     }
 }
