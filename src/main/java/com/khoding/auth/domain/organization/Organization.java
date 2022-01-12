@@ -63,4 +63,13 @@ public class Organization {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
