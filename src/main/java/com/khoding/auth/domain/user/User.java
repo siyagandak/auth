@@ -118,4 +118,17 @@ public class User {
                           LocalDateTime lastmodified, Boolean isVerfied, Organization organization) {
         return new User(username, password, dateSignedUp, lastmodified, isVerfied, organization);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", dateSignedUp=" + dateSignedUp +
+                ", lastmodified=" + lastmodified +
+                ", isVerfied=" + isVerfied +
+                ", userRoles=" + userRoles +
+                ", organization=" + organization +
+                '}';
+    }
 }
