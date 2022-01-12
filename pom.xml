@@ -20,6 +20,7 @@
 		<postgresql-version>42.3.1</postgresql-version>
 		<springdoc-openapi-ui-version>1.6.3</springdoc-openapi-ui-version>
 		<jsonwebtoken-version>0.9.1</jsonwebtoken-version>
+		<httpclient-version>4.5.13</httpclient-version>
 	</properties>
 
 	<dependencies>
@@ -49,6 +50,11 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>${springdoc-openapi-ui-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient-version}</version>
 		</dependency>
 
 		<dependency>
