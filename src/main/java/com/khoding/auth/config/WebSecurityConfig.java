@@ -66,10 +66,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(authEntryStatus)
                 .accessDeniedHandler(accessDeniedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll().and()
-                .authorizeRequests().antMatchers("/api/test/**").permitAll().and()
+                .authorizeRequests().antMatchers("/api/**").permitAll().and()
+                /*.authorizeRequests().antMatchers("/api/test/**").permitAll().and()
                 .authorizeRequests().antMatchers("/api/organization/**").permitAll().and()
-                .authorizeRequests().antMatchers("/api/users/**").permitAll().and()
+                .authorizeRequests().antMatchers("/api/users/**").permitAll().and()*/
                 .authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated();
     }
