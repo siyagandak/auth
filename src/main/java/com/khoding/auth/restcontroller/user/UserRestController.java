@@ -24,7 +24,8 @@ public class UserRestController {
     @GetMapping("/getUser/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         User user = userService.getUserByUsername(username);
-        UserDto userDto = UserDto.of(user.getId(), user.getDateSignedUp().toString(), user.getUserRoles(), user.getOrganization().getName());
+        UserDto userDto = UserDto.of(user.getId(), user.getDateSignedUp().toString(),
+                user.getLastmodified().toString(), user.getUserRoles(), user.getOrganization().getName());
         return ResponseEntity.ok(userDto);
     }
 

@@ -7,18 +7,20 @@ import java.util.Set;
 public class UserDto {
     private Long id;
     private String dateSignedUp;
+    private String dateLastModified;
     private Set<Role> user_role;
     private String user_organization;
 
-    public UserDto(Long id, String dateSignedUp, Set<Role> user_role, String user_organization) {
+    public UserDto(Long id, String dateSignedUp, String dateLastModified, Set<Role> user_role, String user_organization) {
         this.id = id;
         this.dateSignedUp = dateSignedUp;
+        this.dateLastModified = dateLastModified;
         this.user_role = user_role;
         this.user_organization = user_organization;
     }
 
-    public static UserDto of(Long id, String dateSignedUp, Set<Role> user_role, String user_organization){
-        return  new UserDto(id, dateSignedUp, user_role, user_organization);
+    public static UserDto of(Long id, String dateSignedUp, String dateLastModified, Set<Role> user_role, String user_organization){
+        return  new UserDto(id, dateSignedUp, dateLastModified, user_role, user_organization);
     }
 
     public Long getId() {
