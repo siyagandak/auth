@@ -45,4 +45,10 @@ public class UserServiceImpl implements UserService{
         LOGGER.info("{} Gettting all users", LOGGER_PREFIX);
         return userRepository.findAll(pageable);
     }
+
+    @Override
+    public User saveUser(User user) {
+        LOGGER.info("{} Saving user {}", LOGGER_PREFIX, user);
+        return userRepository.save(user);
+    }
 }
