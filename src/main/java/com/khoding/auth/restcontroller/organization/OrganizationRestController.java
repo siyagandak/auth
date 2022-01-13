@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController ()
 @RequestMapping("/api/organization")
@@ -46,5 +47,41 @@ public class OrganizationRestController {
     public Page<Organization> getAllOrganizations() {
         LOGGER.info("{} Initiating request to get all organizations...", LOGGER_PREFIX);
         return organizationService.getAllOrganizations();
+    }
+
+    @PutMapping("/{organizationId}")
+    public ResponseEntity<?> updateOrganization(@PathVariable Long organizationId,
+                                           @RequestBody @Valid OrganizationRequest organizationRequest){
+        LOGGER.info("{} Update organization with id={}", LOGGER_PREFIX, organizationId);
+        Optional<Organization> organization = organizationService.getOrganizationById(organizationId);
+        if (organization.isPresent()) {
+            return ResponseEntity.ok(organizationService.updateOrganization(organizationId, organizationRequest));
+        }
+        if (organizationService.checkOrganizationExistsByCode(organizationRequest.getCode())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(MessageResponse.buildMessage("Invalid Request. Code already exists"));
+        }
+        if (organizationService.checkOrganizationExistsByName(organizationRequest.getName())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(MessageResponse.buildMessage("Invalid Request. Name already exists"));
+        }
+        return ResponseEntity
+                .badRequest()
+                .body(MessageResponse.buildMessage("Invalid Request. ERecord not found"));
+    }
+
+    @GetMapping("/getBy/{organizationId}")
+    public ResponseEntity<?> getOrganizationById(@PathVariable Long organizationId){
+        LOGGER.info("{} Get organization with id ={}", LOGGER_PREFIX, organizationId);
+        Optional<Organization> organization = organizationService.getOrganizationById(organizationId);
+        LOGGER.info("{} Organization retrieved ={}", LOGGER_PREFIX, organization);
+        if (organization.isPresent()) {
+            return ResponseEntity.ok(organization.get());
+        }
+        return ResponseEntity
+                .badRequest()
+                .body(MessageResponse.buildMessage("Invalid Request. ERecord not found"));
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
     private final OrganizationRepository organizationRepository;
@@ -44,5 +46,20 @@ public class OrganizationServiceImpl implements OrganizationService{
     public Page<Organization> getAllOrganizations() {
         LOGGER.info("{} Getting all organizations", LOGGER_PREFIX);
         return organizationRepository.findAll(Pageable.unpaged());
+    }
+
+    @Override
+    public Organization updateOrganization(Long organizationId, OrganizationRequest organizationRequest) {
+        LOGGER.info("{} Update organization with id ={}", LOGGER_PREFIX, organizationId);
+        Organization organization = getOrganizationById(organizationId).get();
+        organization.setName(organizationRequest.getName());
+        organization.setCode(organizationRequest.getCode());
+        organization.setAddress(organizationRequest.getAddress());
+        return organizationRepository.save(organization);
+    }
+
+    @Override
+    public Optional<Organization> getOrganizationById(Long organizationId) {
+        return organizationRepository.findById(organizationId);
     }
 }
