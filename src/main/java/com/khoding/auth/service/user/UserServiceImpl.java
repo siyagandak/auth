@@ -1,7 +1,6 @@
 package com.khoding.auth.service.user;
 
 import com.khoding.auth.domain.user.User;
-import com.khoding.auth.repository.user.RoleRepository;
 import com.khoding.auth.repository.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-    private final static String LOGGER_PREFIX = "[UserServiceImpl]";
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final String LOGGER_PREFIX = "[UserServiceImpl]";
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
     }
 
     @Override

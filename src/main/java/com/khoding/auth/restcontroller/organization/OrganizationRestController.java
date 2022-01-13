@@ -18,8 +18,8 @@ import java.util.Optional;
 @RequestMapping("/api/organization")
 public class OrganizationRestController {
     private final OrganizationService organizationService;
-    private final static String LOGGER_PREFIX = "[OrganizationRestController]";
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrganizationRestController.class);
+    private static final String LOGGER_PREFIX = "[OrganizationRestController]";
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationRestController.class);
 
     public OrganizationRestController(OrganizationService organizationService) {
         this.organizationService = organizationService;

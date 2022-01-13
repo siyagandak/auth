@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
     private final OrganizationRepository organizationRepository;
-    private final static String LOGGER_PREFIX = "[OrganizationServiceImpl]";
+    private static final String LOGGER_PREFIX = "[OrganizationServiceImpl]";
     private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationServiceImpl.class);
 
     public OrganizationServiceImpl(OrganizationRepository organizationRepository) {

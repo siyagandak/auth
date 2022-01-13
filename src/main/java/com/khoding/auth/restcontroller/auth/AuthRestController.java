@@ -18,8 +18,8 @@ import javax.validation.Valid;
 @RequestMapping("/api/auth")
 public class AuthRestController {
     private final AuthService authService;
-    private final static String LOGGER_PREFIX = "[Auth Controller]";
-    private final static Logger LOGGER = LoggerFactory.getLogger(AuthRestController.class);
+    private static final String LOGGER_PREFIX = "[Auth Controller]";
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthRestController.class);
 
     public AuthRestController(AuthService authService) {
         this.authService = authService;

@@ -36,7 +36,7 @@ public class AuthServiceImpl implements AuthService {
     private final OrganizationRepository organizationRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
-    private final static String LOGGER_PREFIX = "[SignUp Service]";
+    private static final String LOGGER_PREFIX = "[SignUp Service]";
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, OrganizationRepository organizationRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
