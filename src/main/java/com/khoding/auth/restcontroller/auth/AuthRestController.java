@@ -50,11 +50,4 @@ public class AuthRestController {
         JwtResponse jwtResponse = authService.siginUser(userLoginRequest);
         return ResponseEntity.ok(jwtResponse);
     }
-
-    @GetMapping("/generate_otp")
-    public ResponseEntity<?> generateOtp(){
-        LOGGER.info("{} generating otp", LOGGER_PREFIX);
-        LOGGER.info("{} otp generated is = {}", LOGGER_PREFIX, authService.generateOtp());
-        return ResponseEntity.ok(authService.generateOtp());
-    }
 }
