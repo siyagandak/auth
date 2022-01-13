@@ -1,6 +1,7 @@
 package com.khoding.auth.restcontroller.user;
 
 import com.khoding.auth.domain.user.User;
+import com.khoding.auth.response.MessageResponse;
 import com.khoding.auth.service.user.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/users")
@@ -24,6 +26,11 @@ public class UserRestController {
     @GetMapping("/getUser/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         User user = userService.getUserByUsername(username);
+        if (Objects.isNull(user)) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(MessageResponse.buildMessage("User record not found"));
+        }
         UserDto userDto = UserDto.of(user.getId(), user.getDateSignedUp().toString(),
                 user.getLastmodified().toString(), user.getUserRoles(), user.getOrganization().getName());
         return ResponseEntity.ok(userDto);

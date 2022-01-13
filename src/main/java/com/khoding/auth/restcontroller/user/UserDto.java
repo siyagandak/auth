@@ -6,10 +6,10 @@ import java.util.Set;
 
 public class UserDto {
     private Long id;
+    private String user_organization;
+    private Set<Role> user_role;
     private String dateSignedUp;
     private String dateLastModified;
-    private Set<Role> user_role;
-    private String user_organization;
 
     public UserDto(Long id, String dateSignedUp, String dateLastModified, Set<Role> user_role, String user_organization) {
         this.id = id;
@@ -53,5 +53,13 @@ public class UserDto {
 
     public void setUser_organization(String user_organization) {
         this.user_organization = user_organization;
+    }
+
+    public String getDateLastModified() {
+        return dateLastModified;
+    }
+
+    public void setDateLastModified(String dateLastModified) {
+        this.dateLastModified = dateLastModified;
     }
 }

@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getUserByUsername(String username) {
-        LOGGER.info("{} search user = {}", LOGGER_PREFIX, username);
+        LOGGER.info("{} Retrieving user = {}", LOGGER_PREFIX, username);
         return userRepository.findByUsername(username);
     }
 
