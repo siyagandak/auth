@@ -1,11 +1,10 @@
 package com.khoding.auth.service.otp;
 
 import com.khoding.auth.domain.otp.Otp;
-import com.khoding.auth.domain.otp.Status;
+import com.khoding.auth.domain.otp.OtpStatus;
 import com.khoding.auth.domain.user.User;
 import com.khoding.auth.repository.otp.OtpRepository;
 import com.khoding.auth.service.user.UserService;
-import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -37,7 +36,7 @@ public class OtpServiceImpl implements OtpService {
     public OtpSMS generateOtp(User user) {
         LOGGER.info("{} Generating otp for user {}", LOGGER_PREFIX, user.getUsername());
         inValidatePrevOtps(user);
-        Otp otp = Otp.of(otpGenerator().toString(), Status.PENDING_VERIFICATION, user, LocalDateTime.now(),
+        Otp otp = Otp.of(otpGenerator().toString(), OtpStatus.PENDING_VERIFICATION, user, LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(10L), LocalDateTime.now());
         otpRepository.save(otp);
         return deliverOtp(otp);
@@ -82,7 +81,7 @@ public class OtpServiceImpl implements OtpService {
         User user = userService.getUserByUsername(otp.getUser().getUsername());
         Otp currentOtp = getAllUserOtpOrderByDateIssuedDesc(user);
         if (currentOtp.getOtp().equals(otp.getOtp())) {
-            otp.setStatus(Status.VERIFIED);
+            otp.setStatus(OtpStatus.VERIFIED);
             otp.setLastmodified(LocalDateTime.now());
             otpRepository.save(otp);
             user.setVerfied(Boolean.TRUE);
@@ -98,10 +97,7 @@ public class OtpServiceImpl implements OtpService {
         Optional<Otp> otp = otpRepository.findAllByUserOrderByDateIssuedDesc(user)
                 .stream()
                 .findFirst();
-        if (otp.isEmpty()) {
-            return null;
-        }
-        return otp.get();
+        return otp.orElse(null);
     }
 
     @Override
@@ -121,7 +117,7 @@ public class OtpServiceImpl implements OtpService {
         List<Otp> otpList = otpRepository.findAllByUser(user);
         if (!otpList.isEmpty()) {
             otpList.forEach(otp -> {
-                otp.setStatus(Status.EXPIRED);
+                otp.setStatus(OtpStatus.EXPIRED);
                 otpRepository.save(otp);
             });
         }

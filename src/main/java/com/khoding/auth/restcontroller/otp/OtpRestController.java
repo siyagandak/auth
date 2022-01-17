@@ -1,7 +1,7 @@
 package com.khoding.auth.restcontroller.otp;
 
 import com.khoding.auth.domain.otp.Otp;
-import com.khoding.auth.domain.otp.Status;
+import com.khoding.auth.domain.otp.OtpStatus;
 import com.khoding.auth.domain.user.User;
 import com.khoding.auth.response.MessageResponse;
 import com.khoding.auth.service.otp.OtpRequest;
@@ -60,9 +60,9 @@ public class OtpRestController {
                     .body(MessageResponse.buildMessage("No otp record found. Request otp to verify"));
         }
 
-        if (otp.getStatus().equals(Status.PENDING_VERIFICATION)) {
+        if (otp.getStatus().equals(OtpStatus.PENDING_VERIFICATION)) {
             if (LocalDateTime.now().isAfter(otp.getDateExpiry())) {
-                otp.setStatus(Status.EXPIRED);
+                otp.setStatus(OtpStatus.EXPIRED);
                 otpService.saveOtp(otp);
                 return ResponseEntity
                         .badRequest()

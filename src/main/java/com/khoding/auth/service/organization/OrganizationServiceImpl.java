@@ -1,6 +1,7 @@
 package com.khoding.auth.service.organization;
 
 import com.khoding.auth.domain.organization.Organization;
+import com.khoding.auth.domain.utils.Status;
 import com.khoding.auth.repository.organization.OrganizationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,8 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Override
     public Organization createOrganization(OrganizationRequest organizationRequest) {
         LOGGER.info("{} Creating organizational request", organizationRequest);
-        Organization organization = Organization.buid(organizationRequest.getName(),
-                organizationRequest.getCode(), organizationRequest.getAddress());
+        Organization organization = Organization.build(organizationRequest.getName(),
+                organizationRequest.getCode(), organizationRequest.getAddress(), Status.ACTIVE);
         return organizationRepository.save(organization);
     }
 
@@ -60,6 +61,26 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     public Optional<Organization> getOrganizationById(Long organizationId) {
+        LOGGER.info("{} Retrieving organization with id ={}", LOGGER_PREFIX, organizationId);
         return organizationRepository.findById(organizationId);
+    }
+
+    @Override
+    public Organization updateOrganizationStatus(Long organizationId, Status status) {
+        LOGGER.info("{} Updating status of organization with id ={}", LOGGER_PREFIX, organizationId);
+        Organization organization = getOrganizationById(organizationId).get();
+
+        if (status.equals(Status.ACTIVE)) {
+            organization.setStatus(Status.ACTIVE);
+            organizationRepository.save(organization);
+            LOGGER.info("{} Status {} Organization {}", LOGGER_PREFIX, status, organization);
+        }
+
+        if (status.equals(Status.INACTIVE)) {
+            organization.setStatus(Status.INACTIVE);
+            organizationRepository.save(organization);
+            LOGGER.info("{} Status {} Organization {}", LOGGER_PREFIX, status, organization);
+        }
+        return organization;
     }
 }
