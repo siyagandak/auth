@@ -16,7 +16,7 @@ public class Otp {
     private String otp;
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    private OtpStatus otpStatus;
     @ManyToOne
     private User user;
     @Column(name = "date_issued")
@@ -29,19 +29,19 @@ public class Otp {
     public Otp() {
     }
 
-    public Otp(String otp, Status status, User user, LocalDateTime dateIssued,
+    public Otp(String otp, OtpStatus otpStatus, User user, LocalDateTime dateIssued,
                LocalDateTime dateExpiry, LocalDateTime lastmodified) {
         this.otp = otp;
-        this.status = status;
+        this.otpStatus = otpStatus;
         this.user = user;
         this.dateIssued = dateIssued;
         this.dateExpiry = dateExpiry;
         this.lastmodified = lastmodified;
     }
 
-    public static Otp of(String otp, Status status, User user, LocalDateTime dateIssued,
+    public static Otp of(String otp, OtpStatus otpStatus, User user, LocalDateTime dateIssued,
                          LocalDateTime dateExpiry, LocalDateTime lastmodified) {
-        return new Otp(otp, status, user, dateIssued, dateExpiry, lastmodified);
+        return new Otp(otp, otpStatus, user, dateIssued, dateExpiry, lastmodified);
     }
 
     public Long getId() {
@@ -60,12 +60,12 @@ public class Otp {
         this.otp = otp;
     }
 
-    public Status getStatus() {
-        return status;
+    public OtpStatus getStatus() {
+        return otpStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(OtpStatus otpStatus) {
+        this.otpStatus = otpStatus;
     }
 
     public LocalDateTime getDateIssued() {
@@ -104,7 +104,7 @@ public class Otp {
     public String toString() {
         return "Otp{" +
                 "id=" + id +
-                ", status=" + status +
+                ", status=" + otpStatus +
                 ", user=" + user +
                 ", dateIssued=" + dateIssued +
                 ", dateExpiry=" + dateExpiry +

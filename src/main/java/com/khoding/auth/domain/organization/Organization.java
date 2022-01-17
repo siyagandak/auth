@@ -1,5 +1,7 @@
 package com.khoding.auth.domain.organization;
 
+import com.khoding.auth.domain.utils.Status;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
@@ -18,18 +20,21 @@ public class Organization {
     @Size(max = 50)
     @Column(name = "address")
     private String address;
+    @Column(name = "status")
+    private Status status;
 
     public Organization() {
     }
 
-    public Organization(String name, String code, String address) {
+    public Organization(String name, String code, String address, Status status) {
         this.name = name;
         this.code = code;
         this.address = address;
+        this.status = status;
     }
 
-    public static Organization buid(String name, String code, String address){
-        return new Organization(name, code, address);
+    public static Organization build(String name, String code, String address, Status status){
+        return new Organization(name, code, address, status);
     }
 
     public Long getId() {
@@ -64,12 +69,21 @@ public class Organization {
         this.address = address;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Organization{" +
-                "name='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", address='" + address + '\'' +
+                ", status=" + status +
                 '}';
     }
 }
