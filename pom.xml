@@ -16,7 +16,6 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>11</java.version>
 		<postgresql-version>42.3.1</postgresql-version>
 		<springdoc-openapi-ui-version>1.6.3</springdoc-openapi-ui-version>
 		<jsonwebtoken-version>0.9.1</jsonwebtoken-version>
